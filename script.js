@@ -4,8 +4,20 @@ async function fetchCharacter(characterSelected) {
     return characterFetched;
 }
 
+const couleursClasse = {
+    "Death Knight": "dk",
+    "Druid": "druid",
+    "Hunter": "hunter",
+    "Mage": "mage",
+    "Paladin": "paladin",
+    "Priest": "priest",
+    "Rogue": "rogue",
+    "Shaman": "shaman",
+    "Warlock": "warlock",
+    "Warrior": "warrior"
+};
+
 function genererPersonnage(characterFetched) {
-    console.log("function genererpersonnage", characterFetched);
     const infoCharacter = characterFetched[0];
     if (!infoCharacter) {
         console.error("infoCharacter is undefined");
@@ -18,6 +30,12 @@ function genererPersonnage(characterFetched) {
     const fichePerso = document.createElement("figure");
     const nomPerso = document.createElement("h2");
     nomPerso.innerText = charName;
+    const classColor = couleursClasse[className];
+    if (classColor) {
+        nomPerso.classList.add(classColor);
+    } else {
+        console.warn(`No color class found for class name: ${className}`);
+    }
     const specPerso = document.createElement("h3");
     specPerso.innerText = className + " - " + specName;
     sectionPerso.appendChild(fichePerso);
@@ -32,32 +50,40 @@ function genererParses(character) {
         const encounterID = parse.encounterID;
         const dpsFight = Math.round(parse.total);
         const percentileFight = Math.round(parse.percentile);
-
+        const startFight = parse.startTime;
+        const diffRaid = parse.difficulty;
+        const sizeRaid = parse.size;
+        const ilvlFight = parse.ilvlKeyOrPatch;
         const sectionPerso = document.querySelector(".character");
         const bossName = document.createElement("h3");
         if (encounterID == 1034 || encounterID == 1029 || encounterID == 1026)
             bossName.innerHTML = `<i class="fa-solid fa-skull"></i> ${fightName} <i class="fa-solid fa-crown"></i>`;
         else
             bossName.innerHTML = `<i class="fa-solid fa-skull"></i> ${fightName}`;
+        
+        const percentileColorMap = [
+            { threshold: 100, class: "artifact" },
+            { threshold: 99, class: "astounding" },
+            { threshold: 95, class: "legendary" },
+            { threshold: 75, class: "epic" },
+            { threshold: 50, class: "rare" },
+            { threshold: 25, class: "uncommon" },
+            { threshold: 0, class: "poor" }
+        ];
+        function getColorClass(percentile) {
+            for (const range of percentileColorMap) {
+                if (percentile >= range.threshold) {
+                    return range.class;
+                }
+            }
+            return "poor"; // Default class if no match is found
+        }
+        const parseColor = getColorClass(percentileFight);
         const inlineResult = document.createElement("p");
-        var parseColor = "legendary";
-        if (percentileFight < 25)
-            parseColor = "poor"
-        else if (percentileFight < 50)
-            parseColor = "uncommon"
-        else if (percentileFight < 75)
-            parseColor = "rare"
-        else if (percentileFight < 95)
-            parseColor = "epic"
-        else if (percentileFight < 98)
-            parseColor = "legendary"
-        else if (percentileFight = 99)
-            parseColor = "astounding"
-        else if (percentileFight = 100)
-            parseColor = "artifact"
+
         inlineResult.innerHTML =`
         <div class="parse ${parseColor}">
-        <b>DPS</b>: ${dpsFight} - <b>Percentile</b>: ${percentileFight}
+        DPS: <b>${dpsFight}</b> at ilvl <b>${ilvlFight}</b> - Percentile: <b>${percentileFight}</b>
         </div>`;
         sectionPerso.appendChild(bossName)
         sectionPerso.appendChild(inlineResult)

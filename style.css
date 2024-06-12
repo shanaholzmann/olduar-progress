@@ -11,6 +11,10 @@
 /* <uniquifier>: Use a unique and descriptive class name
  <weight>: Use a value from 100 to 900 */
 
+* {
+  background-color: rgb(189, 189, 189);
+}
+
 body {
     max-width: 1440px;
     margin: auto;
@@ -38,7 +42,7 @@ body {
   color:#0070ff
 }
 .uncommon { /*25-49*/
-  color:#2d7e22!
+  color:#2d7e22
 }
 .common {
     color:#e1f2f5
@@ -46,3 +50,14 @@ body {
 .poor { /*0-24*/
   color:#666
 }
+
+.dk { color: #c41f3b; }
+.druid { color: #ff7d0a; }
+.hunter { color: green; }
+.shaman { color: #2459ff; }
+.paladin { color: #f58cba; }
+.priest { color: #ffffff; }
+.rogue { color: #fff569; }
+.warlock { color: #9482c9; }
+.mage { color: #69ccf0; }
+.warrior { color: #c79c6e; }
