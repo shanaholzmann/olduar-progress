@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+:root {
+    --main-color: #9356DC;
+    --secondary-color: #ff79da;
+    --tertiary-color: #99e2d0;
+    --background-grey: #f6f6f6;
+  }
+
+/* <uniquifier>: Use a unique and descriptive class name
+ <weight>: Use a value from 100 to 900 */
+
+body {
+    max-width: 1440px;
+    margin: auto;
+    font-family: 'Montserrat';
+    color: #9356DC;
+}
+
+.character {
+
+}
+
+.artifact { /*100*/
+  color:#e5cc80
+}
+.astounding { /*99*/
+    color:#e268a8
+  }
+.legendary { /*95-98*/
+  color:#ff8000
+}
+.epic { /*75-94*/
+  color:#a335ee
+}
+.rare { /*50-74*/
+  color:#0070ff
+}
+.uncommon { /*25-49*/
+  color:#2d7e22!
+}
+.common {
+    color:#e1f2f5
+}
+.poor { /*0-24*/
+  color:#666
+}
